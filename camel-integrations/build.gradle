@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:quarkus-camel-bom:${quarkusPlatformVersion}")
+    implementation 'org.apache.camel.quarkus:camel-quarkus-core'
+    implementation 'org.apache.camel.quarkus:camel-quarkus-log'
+    implementation 'org.apache.camel.quarkus:camel-quarkus-kafka'
+    implementation 'org.apache.camel.quarkus:camel-quarkus-rest-openapi'
+    implementation 'org.apache.camel.quarkus:camel-quarkus-rest'
+    implementation 'org.apache.camel.quarkus:camel-quarkus-jackson'
+    implementation 'org.apache.camel.quarkus:camel-quarkus-jdbc'
+    implementation 'io.quarkus:quarkus-arc'
+    implementation 'org.postgresql:postgresql:42.2.10'
+    testImplementation 'io.quarkus:quarkus-junit5'
+}
+
+group 'org.demo.integrationproject'
+version '1.0.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+}
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
