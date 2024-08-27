@@ -16,7 +16,7 @@ public class ExposePeopleRouteCamelK extends RouteBuilder {
     @Override
     public void configure() throws Exception {
         PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        dataSource.setServerNames(new String[]{"integration.integration-project.svc.cluster.local"});
+        dataSource.setServerNames(new String[]{"integration.integration-project-2.svc.cluster.local"});
         dataSource.setDatabaseName("postgres");
         dataSource.setUser("integration");
         dataSource.setPassword("averysecurepassword");
@@ -38,7 +38,7 @@ public class ExposePeopleRouteCamelK extends RouteBuilder {
                 .setHeader(Exchange.HTTP_URI, constant(""))
                 .setHeader(Exchange.HTTP_PATH, constant(""))
                 .to("log:INFO?showBody=true&showHeaders=true")
-                .enrich("http://expose-people-route-camel-k-integration-project.apps.cluster-475kf.475kf.sandbox268.opentlc.com/api/hello?bridgeEndpoint=true", (original, enrich) -> {
+                .enrich("http://expose-people-route-camel-k-integration-project-2.apps.cluster-475kf.475kf.sandbox268.opentlc.com/api/hello?bridgeEndpoint=true", (original, enrich) -> {
                     try {
                         String originalBody = original.getIn().getBody(String.class);
                         String enrichBody = enrich.getIn().getBody(String.class);

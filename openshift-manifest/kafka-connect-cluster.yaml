@@ -4,9 +4,9 @@ metadata:
   annotations:
     strimzi.io/use-connector-resources: 'true'
   name: my-connect-cluster
-  namespace: integration-project
+  namespace: integration-project-2
 spec:
-  bootstrapServers: my-cluster-kafka-bootstrap.integration-project.svc.cluster.local:9092
+  bootstrapServers: my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092
   build:
     output:
       image: quay.io/appdev_playground/kafka-connect-cluster:latest

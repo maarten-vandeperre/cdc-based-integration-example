@@ -1,8 +1,8 @@
 apiVersion: operators.coreos.com/v1
 kind: OperatorGroup
 metadata:
-  name: integration-project-operator-group
-  namespace: integration-project
+  name: integration-project-2-operator-group
+  namespace: integration-project-2
 spec:
   targetNamespaces:
-    - integration-project
+    - integration-project-2

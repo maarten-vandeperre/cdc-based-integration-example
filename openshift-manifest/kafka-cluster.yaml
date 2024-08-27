@@ -2,7 +2,7 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
   name: my-cluster
-  namespace: integration-project
+  namespace: integration-project-2
 spec:
   kafka:
     config:
