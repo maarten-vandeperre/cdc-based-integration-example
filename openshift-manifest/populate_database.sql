@@ -18,6 +18,13 @@ GRANT ALL PRIVILEGES ON SCHEMA tenant_1 TO tenant_1;
 GRANT ALL PRIVILEGES ON SCHEMA tenant_2 TO tenant_2;
 GRANT ALL PRIVILEGES ON SCHEMA tenant_3 TO tenant_3;
 
+ALTER DEFAULT PRIVILEGES IN SCHEMA tenant_1
+    GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO tenant_1;
+ALTER DEFAULT PRIVILEGES IN SCHEMA tenant_2
+    GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO tenant_2;
+ALTER DEFAULT PRIVILEGES IN SCHEMA tenant_3
+    GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO tenant_3;
+
 -- Step 4: Create a Table in the Public Schema
 CREATE TABLE public.identifiers (
                                     id SERIAL PRIMARY KEY,
@@ -210,3 +217,35 @@ INSERT INTO tenant_3.people_addresses (people_id, address_id) VALUES
                                                                   (1, 2),
                                                                   (2, 2),
                                                                   (3, 3);
+
+
+DO $$
+    DECLARE
+        tbl RECORD;
+    BEGIN
+        FOR tbl IN
+            SELECT tablename FROM pg_tables WHERE schemaname = 'tenant_1'
+            LOOP
+                EXECUTE format('GRANT SELECT, INSERT, UPDATE, DELETE ON %I.%I TO tenant_1;', 'tenant_1', tbl.tablename);
+            END LOOP;
+    END $$;
+DO $$
+    DECLARE
+        tbl RECORD;
+    BEGIN
+        FOR tbl IN
+            SELECT tablename FROM pg_tables WHERE schemaname = 'tenant_2'
+            LOOP
+                EXECUTE format('GRANT SELECT, INSERT, UPDATE, DELETE ON %I.%I TO tenant_2;', 'tenant_2', tbl.tablename);
+            END LOOP;
+    END $$;
+DO $$
+    DECLARE
+        tbl RECORD;
+    BEGIN
+        FOR tbl IN
+            SELECT tablename FROM pg_tables WHERE schemaname = 'tenant_3'
+            LOOP
+                EXECUTE format('GRANT SELECT, INSERT, UPDATE, DELETE ON %I.%I TO tenant_3;', 'tenant_3', tbl.tablename);
+            END LOOP;
+    END $$;

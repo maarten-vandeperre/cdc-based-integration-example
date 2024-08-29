@@ -1,7 +1,10 @@
 // camel-k: language=java dependency=camel-jackson dependency=camel-kafka
+
 // kamel run src/main/java/demo/integrations/CdcRouteCamelK.java --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092
 // kamel get
 // kamel log cdc-route-camel-k
+
+package demo.integrations;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

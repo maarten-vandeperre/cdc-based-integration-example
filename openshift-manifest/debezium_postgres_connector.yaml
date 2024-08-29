@@ -9,12 +9,12 @@ spec:
   class: io.debezium.connector.postgresql.PostgresConnector
   config:
     plugin.name: pgoutput
-    database.hostname: integration.integration-project-2.svc.cluster.local
+    database.hostname: integration-database.integration-project-2.svc.cluster.local
     database.port: 5432
     database.user: integration
     database.password: averysecurepassword
     database.dbname: postgres
-    table.include.list: public.people, public.addresses
+    table.include.list: tenant_1.contracts, tenant_2.contracts, tenant_3.contracts
     topic.prefix: legacydatachanged
     slot.name: changecapture1
     publication.name: changecapture1

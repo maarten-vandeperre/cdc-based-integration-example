@@ -3,6 +3,7 @@ kind: KafkaConnect
 metadata:
   annotations:
     strimzi.io/use-connector-resources: 'true'
+    maarten.test/ok: "test"
   name: my-connect-cluster
   namespace: integration-project-2
 spec:

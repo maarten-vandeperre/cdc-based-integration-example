@@ -2,6 +2,7 @@
 // kamel run src/main/java/demo/integrations/ExposePeopleRouteCamelK.java
 // kamel get
 // kamel log expose-people-route-camel-k
+package demo.integrations;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
