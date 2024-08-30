@@ -9,9 +9,12 @@ package demo.integrations.aggregationflow;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import org.apache.camel.LoggingLevel;
-import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
+
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 
 public class EnrichContractsRouteCamelK extends RouteBuilder {
 
@@ -37,21 +40,9 @@ public class EnrichContractsRouteCamelK extends RouteBuilder {
                     String codeTenant = extractTenantFromUrn(code);
                     String ownerTenant = extractTenantFromUrn(owner);
 
-                    String peopleRef = owner;
-
-                    // Fetch people data using the REST API call
-                    String peopleData = null;
-                    try {
-                        ProducerTemplate template = exchange.getContext().createProducerTemplate(); // TODO in try catch
-                        String peopleDataUrl = String.format("http://localhost:8080/people/%s", peopleRef);
-                        peopleData = template.requestBody(peopleDataUrl, null, String.class);
-                        System.out.println("####1 " + peopleData);
-                    } catch (Exception e) {
-                        System.out.println("####2 " + e.getLocalizedMessage());
-                        System.err.println(e.getLocalizedMessage());
-                        // Handle the exception if the REST call fails
-                        exchange.getIn().setHeader("Error", "Failed to fetch people data: " + e.getMessage());
-                    }
+                    JsonNode peopleData = getPersonData(owner);
+//                    String firstName = peopleData.path("first_name").asText();
+//                    String lastName = peopleData.path("last_name").asText();
 
                     // Create enriched JSON
                     ObjectMapper mapper = new ObjectMapper();
@@ -62,7 +53,7 @@ public class EnrichContractsRouteCamelK extends RouteBuilder {
                     enrichedData.put("owner", owner);
                     enrichedData.put("codeTenant", codeTenant);
                     enrichedData.put("ownerTenant", ownerTenant);
-//                    enrichedData.set("peopleData", mapper.readTree(peopleData));
+                    enrichedData.set("peopleData", peopleData);
 
                     exchange.getIn().setBody(enrichedData);
                 })
@@ -79,6 +70,31 @@ public class EnrichContractsRouteCamelK extends RouteBuilder {
             }
         }
         return null;
+    }
+
+    private JsonNode getPersonData(String code) {
+        try {
+            HttpClient client = HttpClient.newHttpClient(); //TODO try with resources enablement
+            String url = "http://people-service-route-camel-k-integration-project-2.apps.cluster-475kf.475kf.sandbox268.opentlc.com/people/" + code;
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(url))
+                    .GET()
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            if (response.statusCode() == 200) {
+                String responseBody = response.body();
+                ObjectMapper objectMapper = new ObjectMapper();
+                return objectMapper.readTree(responseBody).get(0); //TODO should not be a list
+            } else {
+                System.out.println("Failed to fetch data. HTTP error code: " + response.statusCode());
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }

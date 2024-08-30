@@ -34,6 +34,7 @@ oc create secret generic \
 
 # Set up Debezium
 * oc apply -f openshift-manifest/operator-group.yaml
+* oc apply -f openshift-manifest/kafka-operator.yaml
 * oc apply -f openshift-manifest/kafka-cluster.yaml
 * oc apply -f openshift-manifest/kafka-connect-cluster.yaml
 * oc apply -f openshift-manifest/debezium_postgres_connector.yaml
