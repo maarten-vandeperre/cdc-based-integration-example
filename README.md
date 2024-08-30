@@ -121,7 +121,7 @@ tenant agnostic, but can extract a tenant identifier to authenticate against the
    3. A new document in the MongoDB database 'aggregation-database'.
 
 
-### 1. Debezium - Kafka - Aggregation in one code file (with keeping aggregation data in sync)
+### 2. Debezium - Kafka - Aggregation in one code file (with keeping aggregation data in sync)
 This flow is an extension on [1. Debezium - Kafka - Aggregation in one code file](#1-debezium---kafka---aggregation-in-one-code-file):
 The first flow was not complete as the enriched person data was not synced when it changed in the master database. This is solved in this
 integration flow, by adding a second Debezium connector.
