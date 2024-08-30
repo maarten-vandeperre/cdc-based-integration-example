@@ -126,7 +126,7 @@ This flow is an extension on [1. Debezium - Kafka - Aggregation in one code file
 The first flow was not complete as the enriched person data was not synced when it changed in the master database. This is solved in this
 integration flow, by adding a second Debezium connector.
 
-![](images/cdc_flow_2.jpg '')
+![](images/cdc_flow_1b.jpg '')
 
 ## Installation/Configuration
 TODO, manifest files can be found in [this folder](openshift-manifest) and a summier description
