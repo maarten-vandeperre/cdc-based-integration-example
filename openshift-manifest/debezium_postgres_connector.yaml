@@ -14,7 +14,7 @@ spec:
     database.user: integration
     database.password: averysecurepassword
     database.dbname: postgres
-    table.include.list: tenant_1.contracts, tenant_2.contracts, tenant_3.contracts
+    table.include.list: tenant_1.contracts,tenant_2.contracts,tenant_3.contracts
     topic.prefix: legacydatachanged
     slot.name: changecapture1
     publication.name: changecapture1

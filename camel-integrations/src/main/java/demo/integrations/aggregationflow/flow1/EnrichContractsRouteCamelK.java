@@ -1,10 +1,16 @@
 // camel-k: language=java dependency=camel-kafka dependency=camel-jackson dependency=camel-quarkus-rest dependency=camel-quarkus-http
 
-// kamel run src/main/java/demo/integrations/aggregationflow/EnrichContractsRouteCamelK.java --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092
+/**
+
+ kamel run src/main/java/demo/integrations/aggregationflow/flow1/EnrichContractsRouteCamelK.java \
+                --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
+                --property people-camel-base-endpoint=http://people-service-route-camel-k-integration-project-2.apps.cluster-475kf.475kf.sandbox268.opentlc.com
+
+ */
 // kamel get
 // kamel log enrich-contracts-route-camel-k
 
-package demo.integrations.aggregationflow;
+package demo.integrations.aggregationflow.flow1;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,6 +33,13 @@ public class EnrichContractsRouteCamelK extends RouteBuilder {
 //        getContext().setTracing(true);
 
         from("kafka:legacydatachanged.tenant_1.contracts?brokers={{kafka.bootstrap.servers}}")
+                .to("direct:do-processing");
+        from("kafka:legacydatachanged.tenant_2.contracts?brokers={{kafka.bootstrap.servers}}")
+                .to("direct:do-processing");
+        from("kafka:legacydatachanged.tenant_3.contracts?brokers={{kafka.bootstrap.servers}}")
+                .to("direct:do-processing");
+
+        from("direct:do-processing")
                 .log("Headers: ${headers}")
                 .log("Body: ${body}")
                 .unmarshal().json(JsonNode.class)
@@ -74,8 +87,9 @@ public class EnrichContractsRouteCamelK extends RouteBuilder {
 
     private JsonNode getPersonData(String code) {
         try {
+            String peopleCamelEndpoint = getContext().resolvePropertyPlaceholders("{{people-camel-base-endpoint}}");
             HttpClient client = HttpClient.newHttpClient(); //TODO try with resources enablement
-            String url = "http://people-service-route-camel-k-integration-project-2.apps.cluster-475kf.475kf.sandbox268.opentlc.com/people/" + code;
+            String url = peopleCamelEndpoint + "/people/" + code;
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(url))
                     .GET()

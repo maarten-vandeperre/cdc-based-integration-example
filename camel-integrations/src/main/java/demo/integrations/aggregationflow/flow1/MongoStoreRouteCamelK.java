@@ -1,10 +1,17 @@
-// camel-k: language=java dependency=camel-kafka dependency=camel-jackson dependency=camel-quarkus-mongodb dependency=camel-quarkus-mongodb-client
+// camel-k: language=java dependency=camel-kafka dependency=camel-mongodb dependency=camel-jackson dependency=camel-quarkus-mongodb
 
-// kamel run src/main/java/demo/integrations/aggregationflow/MongoStoreRouteCamelK.java --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092
+/**
+
+ kamel run src/main/java/demo/integrations/aggregationflow/flow1/MongoStoreRouteCamelK.java \
+        --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
+        --property mongo-connection-url="mongodb://mongo:mongo@aggregation-database.integration-project-2.svc.cluster.local:27017/?authSource=admin"
+
+ */
+
 // kamel get
 // kamel log mongo-store-route-camel-k
 
-package demo.integrations.aggregationflow;
+package demo.integrations.aggregationflow.flow1;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
@@ -17,7 +24,7 @@ public class MongoStoreRouteCamelK extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        String mongoUri = "mongodb://mongo:mongo@aggregation-mongo.integration-project-2.svc.cluster.local:27017/?authSource=admin";
+        String mongoUri = getContext().resolvePropertyPlaceholders("{{mongo-connection-url}}");
         MongoClient mongoClient = MongoClients.create(mongoUri);
         getContext().getRegistry().bind("myMongoClient", mongoClient);
 
