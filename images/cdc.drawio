@@ -261,6 +261,139 @@
         <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-90" value="Update person data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-88" target="ZoMgPST9Kd7Hdbw3HMSR-3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-91" value="Contract&lt;br&gt;Data" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1910" y="269" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-92" value="Person&lt;div&gt;Data&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="1910" y="389" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-93" value="Aggregation&lt;br&gt;Database" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="3050" y="449" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-94" value="" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="2290" y="219" width="1410" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-95" value="Database" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="2310" y="589" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-96" value="Kafka" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="2470" y="609" width="110" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-97" value="" style="html=1;shadow=0;dashed=0;align=center;verticalAlign=middle;shape=mxgraph.arrows2.arrow;dy=0;dx=10;notch=0;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="2620" y="609" width="140" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-98" value="Kafka&lt;br&gt;Topic" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="2640" y="569" width="90" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-99" value="Integration&lt;br&gt;(often Camel)" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="2790" y="599" width="110" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-100" value="legacydatachanged.tenant_1.contracts" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="2300" y="189" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-101" value="Camel REST&lt;div&gt;Endpoint creation on top of person data&lt;/div&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="2080" y="384" width="160" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-102" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-101" target="ZoMgPST9Kd7Hdbw3HMSR-92">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-103" value="Listen for changes&lt;br&gt;(Debezium)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-100" target="ZoMgPST9Kd7Hdbw3HMSR-91">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-104" value="enriched_data" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="2620" y="189" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-105" value="Fetch for enrichment" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-106" target="ZoMgPST9Kd7Hdbw3HMSR-101">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-106" value="&lt;ol&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Read changed contract data&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Enrich with person data&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Store enriched data&lt;/span&gt;&lt;/li&gt;&lt;/ol&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="2400" y="339" width="210" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-107" value="Listen to" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-106" target="ZoMgPST9Kd7Hdbw3HMSR-100">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-108" value="Push" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-106" target="ZoMgPST9Kd7Hdbw3HMSR-104">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-109" value="&lt;ol&gt;&lt;li&gt;Read enriched data&lt;/li&gt;&lt;li&gt;Add processing timestamp&lt;/li&gt;&lt;li&gt;Store in aggregation database&lt;br&gt;(As a whole)&lt;/li&gt;&lt;/ol&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="2810" y="339" width="210" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-110" value="Listen to" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.654;entryY=0.975;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-109" target="ZoMgPST9Kd7Hdbw3HMSR-104">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-111" value="Persist" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-109" target="ZoMgPST9Kd7Hdbw3HMSR-93">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-112" value="PeopleServiceRouteCamelK" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2130" y="484" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-113" value="&lt;div style=&quot;background-color:#ffffff;color:#080808;font-family:&#39;JetBrains Mono&#39;,monospace;font-size:9.0pt;&quot;&gt;&lt;pre&gt;&lt;span style=&quot;color:#000000;&quot;&gt;EnrichContractsRouteCamelK&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2475" y="439" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-114" value="&lt;div style=&quot;background-color:#ffffff;color:#080808;font-family:&#39;JetBrains Mono&#39;,monospace;font-size:9.0pt;&quot;&gt;&lt;pre&gt;&lt;span style=&quot;color:#000000;&quot;&gt;MongoStoreRouteCamelK&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="2900" y="309" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-115" value="person_data_changed" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="2939" y="189" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-116" value="&lt;meta charset=&quot;utf-8&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;Listen for changes&lt;/span&gt;&lt;br style=&quot;forced-color-adjust: none; color: rgb(0, 0, 0); font-family: Helvetica; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 0); font-family: Helvetica; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;&quot;&gt;(Debezium)&lt;/span&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-115" target="ZoMgPST9Kd7Hdbw3HMSR-92">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3069" y="149" />
+              <mxPoint x="1890" y="149" />
+              <mxPoint x="1890" y="434" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-117" value="&lt;ol&gt;&lt;li&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Read changed person data&lt;/span&gt;&lt;/li&gt;&lt;li&gt;Updates person data in aggregate&lt;/li&gt;&lt;/ol&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="3310" y="360" width="210" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-118" value="Listen to" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-117" target="ZoMgPST9Kd7Hdbw3HMSR-115">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-119" value="Update person data" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-117" target="ZoMgPST9Kd7Hdbw3HMSR-93">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-120" value="aggregate_changed" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#ffe6cc;strokeColor=#d79b00;" vertex="1" parent="1">
+          <mxGeometry x="3260" y="189" width="260" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-121" value="&lt;meta charset=&quot;utf-8&quot;&gt;&lt;span style=&quot;forced-color-adjust: none; color: rgb(0, 0, 0); font-family: Helvetica; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;Listen for changes&lt;/span&gt;&lt;br style=&quot;forced-color-adjust: none; color: rgb(0, 0, 0); font-family: Helvetica; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;&quot;&gt;&lt;span style=&quot;forced-color-adjust: none; color: rgb(0, 0, 0); font-family: Helvetica; font-size: 11px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: nowrap; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !important;&quot;&gt;(Debezium)&lt;/span&gt;" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;jumpStyle=arc;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-120" target="ZoMgPST9Kd7Hdbw3HMSR-93">
+          <mxGeometry x="0.25" y="1" relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3390" y="300" />
+              <mxPoint x="3300" y="300" />
+              <mxPoint x="3300" y="359" />
+              <mxPoint x="3110" y="359" />
+            </Array>
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-122" value="&lt;ol&gt;&lt;li&gt;Read changed aggregate data (i.e., general model)&lt;/li&gt;&lt;li&gt;Translate to customer x specific format&lt;/li&gt;&lt;li&gt;Send to customer x&#39;s API&lt;/li&gt;&lt;/ol&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="3570" y="359" width="230" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-125" value="Listen to" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-123" target="ZoMgPST9Kd7Hdbw3HMSR-120">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="3420" y="170" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-123" value="&lt;ol&gt;&lt;li&gt;Read changed aggregate data (i.e., general model)&lt;/li&gt;&lt;li&gt;Translate to customer x specific format&lt;/li&gt;&lt;li&gt;Send to customer y&#39;s API&lt;/li&gt;&lt;/ol&gt;" style="shape=hexagon;perimeter=hexagonPerimeter2;whiteSpace=wrap;html=1;fixedSize=1;fillColor=#e1d5e7;strokeColor=#9673a6;align=left;" vertex="1" parent="1">
+          <mxGeometry x="3820" y="359" width="230" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-124" value="Listen to" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.855;entryY=1;entryDx=0;entryDy=-4.35;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-122" target="ZoMgPST9Kd7Hdbw3HMSR-120">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-126" value="Customer x&#39;s&lt;div&gt;APIs&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="3610" y="529" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-127" value="Customer y&#39;s&lt;div&gt;APIs&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="3860" y="530" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-128" value="Send" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.625;entryY=0.2;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-122" target="ZoMgPST9Kd7Hdbw3HMSR-126">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ZoMgPST9Kd7Hdbw3HMSR-129" value="Send" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.625;entryY=0.2;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ZoMgPST9Kd7Hdbw3HMSR-123" target="ZoMgPST9Kd7Hdbw3HMSR-127">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>

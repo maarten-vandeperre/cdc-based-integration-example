@@ -128,6 +128,14 @@ integration flow, by adding a second Debezium connector.
 
 ![](images/cdc_flow_1b.jpg '')
 
+
+### 3. Debezium - Kafka - Aggregation in one code file (with calling customer's APIs)
+This flow is an extension on [1. Debezium - Kafka - Aggregation in one code file (with keeping aggregation data in sync)](#2-debezium---kafka---aggregation-in-one-code-file--with-keeping-aggregation-data-in-sync-):
+The second flow stopped on our generic data model (i.e., the aggregate), but this data needs to be pushed (on change) to our customers in their specific format,
+which is implemented in this flow.
+
+![](images/cdc_flow_1c.jpg '')
+
 ## Installation/Configuration
 TODO, manifest files can be found in [this folder](openshift-manifest) and a summier description
 can be found in [commands.md](commands.md)
