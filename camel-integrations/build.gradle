@@ -19,7 +19,6 @@ dependencies {
     implementation 'org.apache.camel.quarkus:camel-quarkus-jackson'
     implementation 'org.apache.camel.quarkus:camel-quarkus-jdbc'
     implementation 'org.apache.camel.quarkus:camel-quarkus-mongodb'
-    implementation 'org.apache.camel.quarkus:camel-quarkus-mongodb-client'
     implementation 'io.quarkus:quarkus-arc'
     implementation 'org.postgresql:postgresql:42.2.10'
     testImplementation 'io.quarkus:quarkus-junit5'

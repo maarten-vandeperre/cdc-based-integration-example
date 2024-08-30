@@ -1,0 +1,42 @@
+* meerdere velden tegelijkertijd resolven
+* veel properties meegeven aan camel-k
+    * security per tenant
+    * x databases, ID, based upon ID we know the tenant, based upon the tenant a different config (e.g., gebruiker)
+    * config server
+    * keyloak integratie
+
+
+schema validatie => zichtbaar maken van schema aanpassingen die incompatibel zouden worden met klant
+tracing
+
+Tabellen:
+    * overeenkomsten met verschillende tenants
+    * personen met verschillende tenants
+    * addressen met verschillende tenants
+    * identifiers => type adres, geslacht persoon
+    * meerdere schemas per tenant
+    * identifier van overeenkomst is tenantspecifiek
+
+Resultaat
+    * tenant specifiek
+    * data naar klanten: event wordt op hun platform gezet (waar alle data in zit) (queue-stomp)
+    * data formaat (check pdf)
+
+ Security
+    * Keycloak, config per tenant. Realm per tenant (+- 800)
+    * topics per realm?
+
+
+ Generiek topic voor alle data changes, bijna niet toegankelijk, dan verder uitsplitsen naar meer specifieke topics
+ Niet standaard alles herlezen bij opstarten
+
+ Minder data doorsturen vanuit debezium
+
+
+
+ !!! multitenant
+ !!! data ophalen zonder extra (niet-camel-based) REST endpoints te maken
+
+
+ agregaat er ook nog in steken
+ eventueel mongo -> dan van daaruit queryen
