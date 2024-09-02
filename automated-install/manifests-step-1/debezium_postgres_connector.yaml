@@ -1,0 +1,21 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnector
+metadata:
+  labels:
+    strimzi.io/cluster: my-connect-cluster
+  name: postgres-debezium-connector
+  namespace: <NAMESPACE>
+spec:
+  class: io.debezium.connector.postgresql.PostgresConnector
+  config:
+    plugin.name: pgoutput
+    database.hostname: integration-database.<NAMESPACE>.svc.cluster.local
+    database.port: 5432
+    database.user: integration
+    database.password: averysecurepassword
+    database.dbname: postgres
+    table.include.list: tenant_1.contracts,tenant_2.contracts,tenant_3.contracts
+    topic.prefix: legacydatachanged
+    slot.name: changecapture1
+    publication.name: changecapture1
+  tasksMax: 1
