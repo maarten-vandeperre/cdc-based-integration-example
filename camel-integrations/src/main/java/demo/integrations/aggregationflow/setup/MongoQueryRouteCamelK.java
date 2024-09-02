@@ -1,8 +1,8 @@
 // camel-k: language=java dependency=camel-kafka dependency=camel-mongodb dependency=camel-jackson dependency=camel-quarkus-mongodb
 
 /**
- * kamel run src/main/java/demo/integrations/aggregationflow/setup/MongoQueryRouteCamelK.java \
- * --property mongo-connection-url="mongodb://mongo:mongo@aggregation-database.integration-project-2.svc.cluster.local:27017/?authSource=admin"
+  kamel run src/main/java/demo/integrations/aggregationflow/setup/MongoQueryRouteCamelK.java \
+  --property mongo-connection-url="mongodb://mongo:mongo@aggregation-database.integration-project-2.svc.cluster.local:27017/?authSource=admin"
  */
 // kamel get
 // kamel log mongo-query-route-camel-k
