@@ -11,9 +11,6 @@ components:
       image: registry.access.redhat.com/ubi8/openjdk-11
       memoryLimit: 512Mi
       mountSources: true
-      volumes:
-        - name: maven-repo
-          path: /home/user/.m2/repository
       endpoints:
         - name: http
           targetPort: 8080
@@ -21,7 +18,7 @@ components:
         - name: JAVA_TOOL_OPTIONS
           value: "-XX:MaxRAMPercentage=50.0"
 
-  - name: tools
+  - name: oc-kamel-tools
     container:
       image: registry.access.redhat.com/openshift4/ose-cli:latest
       memoryLimit: 256Mi
@@ -30,30 +27,21 @@ components:
         - /bin/sh
         - -c
         - |
-          yum install -y https://github.com/apache/camel-k/releases/download/v1.7.0/camel-k-client-1.7.0-linux-64bit.tar.gz && \
-          tar -xzvf camel-k-client-1.7.0-linux-64bit.tar.gz -C /usr/local/bin/ && \
-          rm -rf camel-k-client-1.7.0-linux-64bit.tar.gz
-      volumes:
-        - name: maven-repo
-          path: /home/user/.m2/repository
+          curl -L https://github.com/apache/camel-k/releases/download/v1.7.0/camel-k-client-1.7.0-linux-64bit.tar.gz -o camel-k.tar.gz && \
+          tar -xzf camel-k.tar.gz -C /usr/local/bin/ && rm camel-k.tar.gz && \
+          echo 'Camel K and OpenShift CLI installed'
 
   - name: maven
     container:
       image: quay.io/eclipse/che-java8-maven:nightly
       memoryLimit: 512Mi
       mountSources: true
-      volumes:
-        - name: maven-repo
-          path: /home/user/.m2/repository
 
-  - name: vscode-java
-    plugin:
-      id: redhat/java/latest
-      name: Red Hat Java
-  - name: vscode-kamel
-    plugin:
-      id: redhat/vscode-apache-camel-extension-pack/latest
-      name: Apache Camel K
+  - name: java-vscode
+    container:
+      image: quay.io/eclipse/che-plugin-java:nightly
+      memoryLimit: 512Mi
+      mountSources: true
 
 commands:
   - id: run-java-app
@@ -66,20 +54,16 @@ commands:
 
   - id: kamel-run
     exec:
-      component: tools
-      commandLine: "kamel run /path/to/your/CamelKRoute.java"
+      component: oc-kamel-tools
+      commandLine: "kamel run /projects/CamelKRoute.java"
       group:
         kind: run
         isDefault: false
 
   - id: oc-login
     exec:
-      component: tools
+      component: oc-kamel-tools
       commandLine: "oc login --token=<your-token> --server=<your-server>"
       group:
         kind: build
         isDefault: true
-
-volumes:
-  - name: maven-repo
-    ephemeral: true
