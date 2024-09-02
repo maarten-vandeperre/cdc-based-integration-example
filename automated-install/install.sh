@@ -65,7 +65,7 @@ kamel run ../camel-integrations/src/main/java/demo/integrations/aggregationflow/
         --property postgres-service=integration-database.integration-project-2.svc.cluster.local
 kamel run ../camel-integrations/src/main/java/demo/integrations/aggregationflow/flow1/EnrichContractsRouteCamelK.java \
         --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
-        --property people-camel-base-endpoint=http://people-service-route-camel-k.demo-project.svc.cluster.local
+        --property people-camel-base-endpoint="http://people-service-route-camel-k.demo-project.svc.cluster.local"
 kamel run ../camel-integrations/src/main/java/demo/integrations/aggregationflow/flow1/MongoStoreRouteCamelK.java \
         --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
         --property mongo-connection-url="mongodb://mongo:mongo@aggregation-database.integration-project-2.svc.cluster.local:27017/?authSource=admin"
