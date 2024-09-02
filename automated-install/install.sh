@@ -63,9 +63,9 @@ oc apply -f manifests-step-1/debezium_postgres_connector.yaml
 echo "########### Install Camel K integrations"
 kamel run ../camel-integrations/src/main/java/demo/integrations/aggregationflow/flow1/PeopleServiceRouteCamelK.java \
         --property postgres-service=integration-database.integration-project-2.svc.cluster.local
-#kamel run ../camel-integrations/src/main/java/demo/integrations/aggregationflow/flow1/EnrichContractsRouteCamelK.java \
-#        --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
-#        --property people-camel-base-endpoint=http://people-service-route-camel-k-integration-project-2.apps.cluster-475kf.475kf.sandbox268.opentlc.com
-#kamel run ../camel-integrations/src/main/java/demo/integrations/aggregationflow/flow1/MongoStoreRouteCamelK.java \
-#        --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
-#        --property mongo-connection-url="mongodb://mongo:mongo@aggregation-database.integration-project-2.svc.cluster.local:27017/?authSource=admin"
+kamel run ../camel-integrations/src/main/java/demo/integrations/aggregationflow/flow1/EnrichContractsRouteCamelK.java \
+        --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
+        --property people-camel-base-endpoint=http://people-service-route-camel-k.demo-project.svc.cluster.local
+kamel run ../camel-integrations/src/main/java/demo/integrations/aggregationflow/flow1/MongoStoreRouteCamelK.java \
+        --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
+        --property mongo-connection-url="mongodb://mongo:mongo@aggregation-database.integration-project-2.svc.cluster.local:27017/?authSource=admin"
