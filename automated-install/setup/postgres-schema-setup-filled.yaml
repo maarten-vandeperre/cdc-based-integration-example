@@ -1,0 +1,125 @@
+apiVersion: camel.apache.org/v1
+kind: Integration
+metadata:
+  name: postgres-schema-setup
+spec:
+  sources:
+    - content: |
+        - route:
+            id: postgres-schema-setup-route
+            steps:
+              - log: "Starting PostgreSQL schema setup..."
+
+              # Execute the ALTER SYSTEM command
+              - to: "jdbc:postgresql://integration-database.demo-project.svc.cluster.local:5432/postgres?user=integration&password=averysecurepassword"
+                parameters:
+                  query: "ALTER SYSTEM SET wal_level = 'logical';"
+        
+              # Step 1: Create Schemas
+              - to: "jdbc:postgresql://integration-database.demo-project.svc.cluster.local:5432/postgres?user=integration&password=averysecurepassword"
+                parameters:
+                  query: |
+                    CREATE SCHEMA tenant_1;
+                    CREATE SCHEMA tenant_2;
+                    CREATE SCHEMA tenant_3;
+        
+              # Step 2: Create Users with passwords
+              - to: "jdbc:postgresql://integration-database.demo-project.svc.cluster.local:5432/postgres?user=integration&password=averysecurepassword"
+                parameters:
+                  query: |
+                    CREATE USER tenant_1 WITH PASSWORD 'integration';
+                    CREATE USER tenant_2 WITH PASSWORD 'integration';
+                    CREATE USER tenant_3 WITH PASSWORD 'integration';
+        
+              # Step 3: Grant Schema Permissions to Users
+              - to: "jdbc:postgresql://integration-database.demo-project.svc.cluster.local:5432/postgres?user=integration&password=averysecurepassword"
+                parameters:
+                  query: |
+                    GRANT ALL PRIVILEGES ON SCHEMA tenant_1 TO tenant_1;
+                    GRANT ALL PRIVILEGES ON SCHEMA tenant_2 TO tenant_2;
+                    GRANT ALL PRIVILEGES ON SCHEMA tenant_3 TO tenant_3;
+
+              - to: "jdbc:postgresql://integration-database.demo-project.svc.cluster.local:5432/postgres?user=integration&password=averysecurepassword"
+                parameters:
+                  query: |
+                    ALTER DEFAULT PRIVILEGES IN SCHEMA tenant_1
+                    GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO tenant_1;
+                    ALTER DEFAULT PRIVILEGES IN SCHEMA tenant_2
+                    GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO tenant_2;
+                    ALTER DEFAULT PRIVILEGES IN SCHEMA tenant_3
+                    GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO tenant_3;
+        
+              # Step 4: Create a Table in the Public Schema
+              - to: "jdbc:postgresql://integration-database.demo-project.svc.cluster.local:5432/postgres?user=integration&password=averysecurepassword"
+                parameters:
+                  query: |
+                    CREATE TABLE public.identifiers (
+                        id SERIAL PRIMARY KEY,
+                        code VARCHAR(50) NOT NULL UNIQUE,
+                        name VARCHAR(255) NOT NULL,
+                        readable_code VARCHAR(50) NOT NULL,
+                        type VARCHAR(50) NOT NULL
+                    );
+
+              # Step 5: Create Tables in Tenant Schemas
+              - to: "jdbc:postgresql://integration-database.demo-project.svc.cluster.local:5432/postgres?user=integration&password=averysecurepassword"
+                parameters:
+                  query: |
+                    CREATE TABLE tenant_1.people (
+                        id SERIAL PRIMARY KEY,
+                        code VARCHAR(50) NOT NULL UNIQUE,
+                        first_name VARCHAR(100),
+                        last_name VARCHAR(100),
+                        gender VARCHAR(10),
+                        status VARCHAR(50)
+                    );
+
+                    CREATE TABLE tenant_1.addresses (
+                        id SERIAL PRIMARY KEY,
+                        code VARCHAR(50) NOT NULL UNIQUE,
+                        type VARCHAR(50),
+                        address_line_1 VARCHAR(255),
+                        address_line_2 VARCHAR(255),
+                        country VARCHAR(100)
+                    );
+
+                    CREATE TABLE tenant_1.contracts (
+                        id SERIAL PRIMARY KEY,
+                        code VARCHAR(50) NOT NULL UNIQUE,
+                        type VARCHAR(50),
+                        name VARCHAR(255),
+                        owner VARCHAR(50) REFERENCES tenant_1.people(code)
+                    );
+
+                    CREATE TABLE tenant_1.people_addresses (
+                        people_id INTEGER REFERENCES tenant_1.people(id),
+                        address_id INTEGER REFERENCES tenant_1.addresses(id),
+                        PRIMARY KEY (people_id, address_id)
+                    );
+
+                    # Repeat similarly for tenant_2 and tenant_3...
+
+              # Step 6: Insert Sample Records
+              - to: "jdbc:postgresql://integration-database.demo-project.svc.cluster.local:5432/postgres?user=integration&password=averysecurepassword"
+                parameters:
+                  query: |
+                    INSERT INTO public.identifiers (name, code, readable_code, type) VALUES
+                        ('ACTIVE', 'ACTIVE', 'PAS_A', 'PERSON_ACTIVITY_STATUS'),
+                        ('INACTIVE', 'INACTIVE', 'PAS_I', 'PERSON_ACTIVITY_STATUS'),
+                        ('MALE', 'MALE', 'G_M', 'GENDER'),
+                        ('FEMALE', 'FEMALE', 'G_F', 'GENDER'),
+                        ('HOME', 'HOME', 'AT_H', 'ADDRESS_TYPE'),
+                        ('OFFICE', 'OFFICE', 'AT_O', 'ADDRESS_TYPE'),
+                        ('LEASE', 'LEASE', 'CT_L', 'CONTRACT_TYPE'),
+                        ('SERVICE', 'SERVICE', 'CT_S', 'CONTRACT_TYPE');
+
+              - log: "PostgreSQL schema setup completed successfully."
+
+  traits:
+    container:
+      resources:
+        requests:
+          memory: 512Mi
+          cpu: 500m
+  dependencies:
+    - "mvn:org.postgresql:postgresql:42.2.14"
