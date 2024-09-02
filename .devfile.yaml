@@ -1,0 +1,85 @@
+schemaVersion: 2.1.0
+
+metadata:
+  name: camel-k-dev-environment
+  version: 1.0.0
+  description: Devfile for a development environment with Camel K, OpenShift CLI, and Java.
+
+components:
+  - name: java-runtime
+    container:
+      image: registry.access.redhat.com/ubi8/openjdk-11
+      memoryLimit: 512Mi
+      mountSources: true
+      volumes:
+        - name: maven-repo
+          path: /home/user/.m2/repository
+      endpoints:
+        - name: http
+          targetPort: 8080
+      env:
+        - name: JAVA_TOOL_OPTIONS
+          value: "-XX:MaxRAMPercentage=50.0"
+
+  - name: tools
+    container:
+      image: registry.access.redhat.com/openshift4/ose-cli:latest
+      memoryLimit: 256Mi
+      mountSources: true
+      command:
+        - /bin/sh
+        - -c
+        - |
+          yum install -y https://github.com/apache/camel-k/releases/download/v1.7.0/camel-k-client-1.7.0-linux-64bit.tar.gz && \
+          tar -xzvf camel-k-client-1.7.0-linux-64bit.tar.gz -C /usr/local/bin/ && \
+          rm -rf camel-k-client-1.7.0-linux-64bit.tar.gz
+      volumes:
+        - name: maven-repo
+          path: /home/user/.m2/repository
+
+  - name: maven
+    container:
+      image: quay.io/eclipse/che-java8-maven:nightly
+      memoryLimit: 512Mi
+      mountSources: true
+      volumes:
+        - name: maven-repo
+          path: /home/user/.m2/repository
+
+  - name: vscode-java
+    plugin:
+      id: redhat/java/latest
+      name: Red Hat Java
+  - name: vscode-kamel
+    plugin:
+      id: redhat/vscode-apache-camel-extension-pack/latest
+      name: Apache Camel K
+
+commands:
+  - id: run-java-app
+    exec:
+      component: java-runtime
+      commandLine: "java -jar /path/to/your/app.jar"
+      group:
+        kind: run
+        isDefault: true
+
+  - id: kamel-run
+    exec:
+      component: tools
+      commandLine: "kamel run /path/to/your/CamelKRoute.java"
+      group:
+        kind: run
+        isDefault: false
+
+  - id: oc-login
+    exec:
+      component: tools
+      commandLine: "oc login --token=<your-token> --server=<your-server>"
+      group:
+        kind: build
+        isDefault: true
+
+volumes:
+  - name: maven-repo
+    ephemeral: true
