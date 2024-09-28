@@ -74,27 +74,27 @@ tenant agnostic, but can extract a tenant identifier to authenticate against the
 1. 
     ```shell
     kamel run src/main/java/demo/integrations/aggregationflow/flow1/PeopleServiceRouteCamelK.java \
-            --property postgres-service=integration-database.integration-project-2.svc.cluster.local;
+            --property postgres-service=integration-database.demo-project.svc.cluster.local;
    
     kamel log people-service-route-camel-k
     ```
    The following curl command should now return data:
     ```shell
     curl \
-    --location 'http://people-service-route-camel-k-integration-project-2.apps.cluster-475kf.475kf.sandbox268.opentlc.com/people/urn:person:t1:0001'
+    --location 'http://people-service-route-camel-k-demo-project.apps.cluster-475kf.475kf.sandbox268.opentlc.com/people/urn:person:t1:0001'
     ```
 2.
     ```shell
     kamel run src/main/java/demo/integrations/aggregationflow/flow1/EnrichContractsRouteCamelK.java \
-            --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
-            --property people-camel-endpoint=http://people-service-route-camel-k-integration-project-2.apps.cluster-475kf.475kf.sandbox268.opentlc.com;
+            --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092 \
+            --property people-camel-endpoint=http://people-service-route-camel-k-demo-project.apps.cluster-475kf.475kf.sandbox268.opentlc.com;
     
     kamel log enrich-contracts-route-camel-k
 3.
     ```shell
     kamel run src/main/java/demo/integrations/aggregationflow/flow1/MongoStoreRouteCamelK.java \
-          --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
-          --property mongo-connection-url="mongodb://mongo:mongo@aggregation-database.integration-project-2.svc.cluster.local:27017/?authSource=admin"
+          --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092 \
+          --property mongo-connection-url="mongodb://mongo:mongo@aggregation-database.demo-project.svc.cluster.local:27017/?authSource=admin"
 
     kamel kamel log mongo-store-route-camel-k
     ```
@@ -108,14 +108,14 @@ tenant agnostic, but can extract a tenant identifier to authenticate against the
    ```shell
     oc exec -it my-cluster-kafka-0 \
         -- bin/kafka-console-consumer.sh \
-        --bootstrap-server my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
+        --bootstrap-server my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092 \
         --topic legacydatachanged.tenant_2.contracts
     ```
    2. A message on the Kafka topic for enrichment:
    ```shell
     oc exec -it my-cluster-kafka-0 \
         -- bin/kafka-console-consumer.sh \
-        --bootstrap-server my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
+        --bootstrap-server my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092 \
         --topic enriched_data
     ```
    3. A new document in the MongoDB database 'aggregation-database'.

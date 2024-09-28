@@ -3,7 +3,7 @@
 /**
 
  kamel run src/main/java/demo/integrations/aggregationflow/setup/PostgresQueryRouteCamelK.java \
- --property postgres-service=integration-database.integration-project-2.svc.cluster.local
+ --property postgres-service=integration-database.demo-project.svc.cluster.local
 
  */
 // kamel get
@@ -19,6 +19,18 @@ public class PostgresQueryRouteCamelK extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
+        String camelRouteName = "postgres_query";
+        boolean enabled = Boolean.valueOf(getContext().resolvePropertyPlaceholders("{{feature.flag.camel_routes." + camelRouteName + ".enabled}}"));
+
+        if (enabled) {
+            System.out.println("Camel route " + camelRouteName + " enabled");
+            processCamelRoutes();
+        } else {
+            System.out.println("Camel route " + camelRouteName + " disabled");
+        }
+    }
+
+    private void processCamelRoutes() {
         String postgresService = getContext().resolvePropertyPlaceholders("{{postgres-service}}");
 
         PGSimpleDataSource tenant1DataSource = new PGSimpleDataSource();

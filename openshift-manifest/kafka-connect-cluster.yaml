@@ -3,11 +3,10 @@ kind: KafkaConnect
 metadata:
   annotations:
     strimzi.io/use-connector-resources: 'true'
-    maarten.test/ok: "test"
-  name: my-connect-cluster
-  namespace: integration-project-2
+  name: my-connect-cluster-2
+  namespace: demo-project
 spec:
-  bootstrapServers: my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092
+  bootstrapServers: my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092
   build:
     output:
       image: quay.io/appdev_playground/kafka-connect-cluster:latest

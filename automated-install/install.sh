@@ -1,4 +1,4 @@
-defaultNamespace=$(cat .namespace)
+defaultNamespace=$(cat ./automated-install/.namespace)
 read -p "Project/namespace name in OpenShift to use [Default: $defaultNamespace]: " projectname
 projectname=${projectname:-$defaultNamespace}
 read -p "Do yo already have extracted your docker config and stored the file in automated-install folder? (yes/no) [Default: yes]" dockerexported

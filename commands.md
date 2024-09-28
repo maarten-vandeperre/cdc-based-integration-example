@@ -22,6 +22,12 @@ oc port-forward $(oc get pod | grep aggregation-database  | awk '{print $1}') 27
 
 # Populate database
 Run openshift-manifest > populate_database.sql on the postgres (integration) database
+or
+```shell
+oc exec -i $(oc get pod | grep integration-database  | awk '{print $1}') -- mkdir /tmp/openshift-manifest
+oc cp ./openshift-manifest/populate_database.sql $(oc get pod | grep integration-database  | awk '{print $1}'):/tmp/openshift-manifest/populate_database.sql
+oc exec -i $(oc get pod | grep integration-database  | awk '{print $1}') -- env PGPASSWORD=averysecurepassword psql -U integration -d postgres -f /tmp/openshift-manifest/populate_database.sql
+```
 
 # Create a container push secret
 See: https://github.com/maarten-vandeperre/knative-serverless-example-workshop/blob/main/workshop/wrap_up_operator_config.MD
@@ -53,7 +59,7 @@ http://my-connect-cluster-connect-0:8083/connectors/postgres-debezium-connector/
 # Connect to CDC topic
 oc exec -it my-cluster-kafka-0 \
     -- bin/kafka-console-consumer.sh \
-    --bootstrap-server my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
+    --bootstrap-server my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092 \
     --topic legacydatachanged.tenant_1.contracts
 
 Change a field in a contract record and see the message come through.
@@ -70,18 +76,18 @@ update tenant_1.contracts set name = 'Lease Agreement - updated' where code = 'u
 # Test first Camel(K) route
 ```shell
 curl \
-    --location 'http://people-service-route-camel-k-integration-project-2.apps.cluster-475kf.475kf.sandbox268.opentlc.com/people/urn:person:t1:0001' 
+    --location 'http://people-service-route-camel-k-demo-project.apps.cluster-475kf.475kf.sandbox268.opentlc.com/people/urn:person:t1:0001' 
 ```
 
 # Start second Camel(K) route
-* kamel run src/main/java/demo/integrations/aggregationflow/EnrichContractsRouteCamelK.java --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 
+* kamel run src/main/java/demo/integrations/aggregationflow/EnrichContractsRouteCamelK.java --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092 
 * kamel get 
 * kamel log enrich-contracts-route-camel-k
 
 # Listen to new topic
 oc exec -it my-cluster-kafka-0 \
         -- bin/kafka-console-consumer.sh \
-        --bootstrap-server my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092 \
+        --bootstrap-server my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092 \
         --topic enriched_data
 
 Change a field in a contract record and see the message come through.
@@ -91,6 +97,6 @@ update tenant_1.contracts set name = 'Lease Agreement - updated' where code = 'u
 ```
 
 # Start third Camel(K) route
-* kamel run src/main/java/demo/integrations/aggregationflow/MongoStoreRouteCamelK.java --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.integration-project-2.svc.cluster.local:9092
+* kamel run src/main/java/demo/integrations/aggregationflow/MongoStoreRouteCamelK.java --property kafka.bootstrap.servers=my-cluster-kafka-bootstrap.demo-project.svc.cluster.local:9092
 * kamel get
 * kamel log mongo-store-route-camel-k

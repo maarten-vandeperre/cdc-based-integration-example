@@ -1,10 +1,8 @@
 // camel-k: language=java dependency=camel-quarkus-rest dependency=camel-jdbc dependency=camel-quarkus-sql dependency=mvn:org.postgresql:postgresql:42.2.10
 
 /**
-
- kamel run src/main/java/demo/integrations/aggregationflow/flow1/PeopleServiceRouteCamelK.java \
-        --property postgres-service=integration-database.integration-project-2.svc.cluster.local
-
+ * kamel run src/main/java/demo/integrations/aggregationflow/flow1/PeopleServiceRouteCamelK.java \
+ * --property camel_route.people_service.process.postgres_service=integration-database.demo-project.svc.cluster.local
  */
 // kamel get
 // kamel log people-service-route-camel-k
@@ -30,7 +28,7 @@ public class PeopleServiceRouteCamelK extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        String postgresService = getContext().resolvePropertyPlaceholders("{{postgres-service}}");
+        String postgresService = getContext().resolvePropertyPlaceholders("{{camel_route.people_service.process.postgres_service}}");
 
         PGSimpleDataSource tenant1DataSource = new PGSimpleDataSource();
         tenant1DataSource.setServerNames(new String[]{postgresService});
@@ -38,7 +36,7 @@ public class PeopleServiceRouteCamelK extends RouteBuilder {
         tenant1DataSource.setUser("tenant_1");
         tenant1DataSource.setPassword("integration");
         bindToRegistry("tenant1DataSource", tenant1DataSource);
-        
+
         PGSimpleDataSource tenant2DataSource = new PGSimpleDataSource();
         tenant1DataSource.setServerNames(new String[]{postgresService});
         tenant2DataSource.setDatabaseName("postgres");
@@ -64,9 +62,13 @@ public class PeopleServiceRouteCamelK extends RouteBuilder {
                 .bean(this.getClass(), "setDataSourceBasedOnTenant")
                 .log("Tenant DataSource: ${exchangeProperty.dataSourceName}")
                 .setBody(simple("SELECT code, first_name, last_name, status, gender FROM people WHERE code = '${header.code}'"))
-                .toD("jdbc:${exchangeProperty.dataSourceName}")
+                .to("direct:fetch-from-database")
                 .log("Selected data: ${body}")
                 .marshal().json();
+
+        from("direct:fetch-from-database")
+                .routeId("fetch-from-database")
+                .toD("jdbc:${exchangeProperty.dataSourceName}");
     }
 
     public void setDataSourceBasedOnTenant(Exchange exchange) throws Exception {

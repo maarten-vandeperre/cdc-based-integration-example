@@ -2,14 +2,14 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaConnector
 metadata:
   labels:
-    strimzi.io/cluster: my-connect-cluster
+    strimzi.io/cluster: my-connect-cluster-2
   name: postgres-debezium-connector
-  namespace: integration-project-2
+  namespace: demo-project
 spec:
   class: io.debezium.connector.postgresql.PostgresConnector
   config:
     plugin.name: pgoutput
-    database.hostname: integration-database.integration-project-2.svc.cluster.local
+    database.hostname: integration-database.demo-project.svc.cluster.local
     database.port: 5432
     database.user: integration
     database.password: averysecurepassword
