@@ -29,13 +29,13 @@ public class MongoStoreRouteCamelKTest {
     public void testHappyPath() throws Exception {
         String jsonInput = new ObjectMapper().writeValueAsString(getEnrichedDataDefaultData());
 
-        MockEndpoint mockEndpoint = camelContext.getEndpoint("mock:database-call", MockEndpoint.class);
+        MockEndpoint mockEndpoint = camelContext.getEndpoint("mock:database-call-mongo-store-route", MockEndpoint.class);
         mockEndpoint.expectedMessageCount(1);
 
         AdviceWith.adviceWith(camelContext, "mongo-store", route ->
                 route.interceptSendToEndpoint("mongodb:myMongoClient?database=aggregation-database&collection=contracts&operation=save")
                         .skipSendToOriginalEndpoint()
-                        .to("mock:database-call"));
+                        .to("mock:database-call-mongo-store-route"));
 
         producerTemplate.send("direct:kafkamock.enriched_data", exchange -> {
             exchange.getIn().setBody(jsonInput);

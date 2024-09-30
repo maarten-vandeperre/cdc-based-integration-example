@@ -24,7 +24,7 @@ public class PeopleServiceRouteCamelKTest {
 
     @Test
     public void testHappyPath() throws Exception {
-        MockEndpoint mockEndpoint = camelContext.getEndpoint("mock:database-call", MockEndpoint.class);
+        MockEndpoint mockEndpoint = camelContext.getEndpoint("mock:database-call-people-service-route", MockEndpoint.class);
         mockEndpoint.returnReplyBody(constant(
                 List.of(
                         Map.of(
@@ -41,7 +41,7 @@ public class PeopleServiceRouteCamelKTest {
         AdviceWith.adviceWith(camelContext, "fetch-from-database", route ->
                 route.interceptSendToEndpoint("jdbc:tenant1DataSource")
                         .skipSendToOriginalEndpoint()
-                        .to("mock:database-call"));
+                        .to("mock:database-call-people-service-route"));
 
         given()
                 .when()
