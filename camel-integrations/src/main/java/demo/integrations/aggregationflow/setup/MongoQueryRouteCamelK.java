@@ -18,7 +18,7 @@ public class MongoQueryRouteCamelK extends RouteBuilder {
 
     @Override
     public void configure() throws Exception {
-        String camelRouteName = "mongo_store";
+        String camelRouteName = "mongo_query";
         boolean enabled = Boolean.valueOf(getContext().resolvePropertyPlaceholders("{{feature.flag.camel_routes." + camelRouteName + ".enabled}}"));
 
         if (enabled) {

@@ -30,6 +30,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-junit-jupiter'
     testImplementation 'io.rest-assured:rest-assured'
     testImplementation 'org.assertj:assertj-core:3.26.3'
+    testImplementation 'com.fasterxml.jackson.core:jackson-core'
 }
 
 group 'org.demo.integrationproject'
