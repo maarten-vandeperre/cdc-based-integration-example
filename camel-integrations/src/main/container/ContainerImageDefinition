@@ -1,0 +1,3 @@
+FROM registry.access.redhat.com/ubi9/openjdk-21-runtime@sha256:c76659bd657b2d4119733d7f62276417d3375c067ab162202112c2127d9b29e1
+COPY build/camel-integrations-1.0.0-SNAPSHOT-runner.jar /app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]

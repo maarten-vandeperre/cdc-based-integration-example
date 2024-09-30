@@ -1,0 +1,99 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: demo-project
+  name: 'integration-fatjar'
+  annotations: {}
+  labels:
+    app: integration-fatjar
+
+    app.kubernetes.io/component: integration-fatjar
+    app.kubernetes.io/instance: integration-fatjar
+    app.kubernetes.io/name: integration-fatjar
+    app.kubernetes.io/part-of: integration-fatjar
+    app.openshift.io/runtime-namespace: demo-project
+spec:
+  selector:
+    matchLabels:
+      app: integration-fatjar
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: integration-fatjar
+        version: v1
+        app.kubernetes.io/component: integration-fatjar
+        app.kubernetes.io/name: integration-fatjar
+        deployment: integration-fatjar
+      annotations:
+        sidecar.istio.io/inject: "true"
+
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/scheme: "http"
+        prometheus.io/path: "/integration-fatjar/q/metrics"
+    spec:
+      containers:
+        - name: container
+          image: >-
+            quay.io/rh_ee_mvandepe/cdc-based-integration-example-camel:0.0.5-fatjar
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: QUARKUS_PROFILE
+              value: "dev"
+            - name: camel_route.people_service.process.postgres_service
+              value: "integration-database.demo-project.svc.cluster.local"
+      imagePullSecrets: []
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  paused: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: integration-fatjar
+  namespace: demo-project
+  labels:
+    app: integration-fatjar
+    app.kubernetes.io/component: integration-fatjar
+    app.kubernetes.io/instance: integration-fatjar
+    app.kubernetes.io/name: integration-fatjar
+    app.kubernetes.io/part-of: integration-fatjar
+spec:
+  ports:
+    - name: http-8080
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: integration-fatjar
+    deployment: integration-fatjar
+  type: ClusterIP
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: integration-fatjar
+  namespace: demo-project
+  labels:
+    app: integration-fatjar
+    app.kubernetes.io/component: integration-fatjar
+    app.kubernetes.io/instance: integration-fatjar
+    app.kubernetes.io/name: integration-fatjar
+    app.kubernetes.io/part-of: integration-fatjar
+spec:
+  to:
+    kind: Service
+    name: integration-fatjar
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+    destinationCACertificate: ''
+  port:
+    targetPort: http-8080
+  alternateBackends: []

@@ -9,7 +9,7 @@ components:
   - name: java-runtime
     container:
       image: registry.access.redhat.com/ubi8/openjdk-11
-      memoryLimit: 512Mi
+      memoryLimit: 8Gi
       mountSources: true
       endpoints:
         - name: http
@@ -21,7 +21,7 @@ components:
   - name: oc-kamel-tools
     container:
       image: registry.access.redhat.com/openshift4/ose-cli:latest
-      memoryLimit: 256Mi
+      memoryLimit: 4Gi
       mountSources: true
       command:
         - /bin/sh
@@ -40,7 +40,7 @@ components:
   - name: java-vscode
     container:
       image: quay.io/eclipse/che-plugin-java:nightly
-      memoryLimit: 512Mi
+      memoryLimit: 4Gi
       mountSources: true
 
 commands:

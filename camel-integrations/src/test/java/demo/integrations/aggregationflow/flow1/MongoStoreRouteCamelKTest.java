@@ -11,11 +11,9 @@ import org.apache.camel.component.mock.MockEndpoint;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static demo.integrations.aggregationflow.flow1.EnrichContractsRouteCamelKTest.getEnrichedDataDefaultData;
-import static org.apache.camel.builder.Builder.constant;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @QuarkusTest
@@ -45,7 +43,8 @@ public class MongoStoreRouteCamelKTest {
 
         assertThat(mockEndpoint.getExchanges().size()).isEqualTo(1);
         String body = mockEndpoint.getExchanges().get(0).getMessage().getBody(String.class);
-        Map<String, Object> storedResult = new ObjectMapper().readValue(body, new TypeReference<HashMap<String, Object>>() {});
+        Map<String, Object> storedResult = new ObjectMapper().readValue(body, new TypeReference<HashMap<String, Object>>() {
+        });
 
         Map<String, Object> expectedStoredResult = getEnrichedDataDefaultData();
         expectedStoredResult.put("last_updated", storedResult.get("last_updated"));
