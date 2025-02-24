@@ -25,4 +25,4 @@ spec:
     offset.storage.replication.factor: 1
     status.storage.replication.factor: 1
   replicas: 1
-  version: 3.7.0
+  version: 3.8.0
